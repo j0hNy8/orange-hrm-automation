@@ -4,7 +4,7 @@ from pages.base_page import BasePage
 
 class AddEmployeePage(BasePage):
 
-    ADD_BUTTON = (By.XPATH, "//button[normalize_space()='Add']")
+    ADD_BUTTON = (By.XPATH, "//button[normalize-space()='Add']")
 
     INPUT_FIRST_NAME = (By.NAME, "firstName")
     INPUT_LAST_NAME = (By.NAME, "lastName")
