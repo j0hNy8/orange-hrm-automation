@@ -32,7 +32,7 @@ def test_add_new_employee(driver):
     print(f"Searching for employee: {full_name}")
     pim_list.search_employee(full_name)
 
-    is_found = pim_list.is_employee_in_table(full_name)
+    is_found = pim_list.is_employee_in_table(first_name, last_name)
     assert is_found == True, f"Employee {full_name} not found in employee list"
 
     print(

@@ -16,16 +16,20 @@ class EmployeeListPage(BasePage):
     def click_employee_list_tab(self):
         self.click(self.LINK_EMPLOYEE_LIST)
 
-    def search_employee(self, employee_name):
-        self.type_text(self.INPUT_EMPLOYEE_NAME, employee_name)
-        # time.sleep(1)
+    def search_employee(self, full_name):
+        self.type_text(self.INPUT_EMPLOYEE_NAME, full_name)
         self.click(self.SEARCH_BUTTON)
 
-    def is_employee_in_table(self, full_name):
-        dynamic_xpath = (By.XPATH, self.TABLE_ROW_NAME.format(full_name))
+    def is_employee_in_table(self, first_name, last_name):
+
+        xpath_query = (
+            f"//div[@role]='row']|"
+            f"[.//div[normalize-space()='{first_name}']]"
+            f"[.//div[normalize-space()='{last_name}']]"
+        )
 
         try:
-            self.find(dynamic_xpath)
+            self.find((By.XPATH, xpath_query))
             return True
         except:
             return False
