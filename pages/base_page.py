@@ -37,6 +37,9 @@ class BasePage:
         """Gets the text of an element specified by the locator."""
         return wait_visible(self.driver, locator).text
 
-    def find(self, locator):
+    def find(self, locator, timeout=None):
         """Finds an element using the provided locator."""
-        return wait_visible(self.driver, locator)
+        if timeout is None:
+            return wait_visible(self.driver, locator)
+        else:
+            return wait_visible(self.driver, locator, timeout)

@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
+from utils.waits import wait_visible
 import time
 
 
@@ -12,8 +13,6 @@ class EmployeeListPage(BasePage):
 
     SEARCH_BUTTON = (By.CSS_SELECTOR, "button[type='submit']")
 
-    TABLE_ROW_NAME = "//div[contains(text(), '{}')]"
-
     def click_employee_list_tab(self):
         self.click(self.LINK_EMPLOYEE_LIST)
 
@@ -21,6 +20,15 @@ class EmployeeListPage(BasePage):
         self.type_text(self.INPUT_EMPLOYEE_NAME, full_name)
         time.sleep(0.5)  # Wait for suggestions to load
         self.click(self.SEARCH_BUTTON)
+
+    def wait_for_search_complete(self):
+        locator = (By.XPATH, "//span[normalize-space()='(1) Record Found']")
+
+        try:
+            self.find(locator)
+            return True
+        except:
+            return False
 
     def is_employee_in_table(self, first_name, last_name):
         xpath_query = (
