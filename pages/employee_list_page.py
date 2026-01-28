@@ -19,9 +19,8 @@ class EmployeeListPage(BasePage):
 
     def search_employee(self, full_name):
         self.type_text(self.INPUT_EMPLOYEE_NAME, full_name)
-        time.sleep(2)  # Wait for suggestions to load
+        time.sleep(0.5)  # Wait for suggestions to load
         self.click(self.SEARCH_BUTTON)
-        time.sleep(2)
 
     def is_employee_in_table(self, first_name, last_name):
         xpath_query = (
