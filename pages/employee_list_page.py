@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
+import time
 
 
 class EmployeeListPage(BasePage):
@@ -18,14 +19,15 @@ class EmployeeListPage(BasePage):
 
     def search_employee(self, full_name):
         self.type_text(self.INPUT_EMPLOYEE_NAME, full_name)
+        time.sleep(2)  # Wait for suggestions to load
         self.click(self.SEARCH_BUTTON)
+        time.sleep(2)
 
     def is_employee_in_table(self, first_name, last_name):
-
         xpath_query = (
-            f"//div[@role]='row']|"
-            f"[.//div[normalize-space()='{first_name}']]"
-            f"[.//div[normalize-space()='{last_name}']]"
+            f"//div[contains(@class, 'oxd-table-card')]"
+            f"[.//div[contains(text(), '{first_name}')]]"
+            f"[.//div[contains(text(), '{last_name}')]]"
         )
 
         try:
