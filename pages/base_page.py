@@ -12,7 +12,6 @@ class BasePage:
 
     def click(self, locator):
         """Clicks on an element specified by the locator."""
-        """Tries standard click. If blocked (e.g. by header), forces JS click."""
         element = wait_clickable(self.driver, locator)
 
         try:
@@ -29,13 +28,13 @@ class BasePage:
 
     def type_text(self, locator, text):
         """Types text into an input field specified by the locator."""
-        element = wait_visible(self.driver, locator)
+        element = self.find(locator)
         element.clear()
         element.send_keys(text)
 
     def get_text(self, locator):
         """Gets the text of an element specified by the locator."""
-        return wait_visible(self.driver, locator).text
+        return self.find(locator).text
 
     def find(self, locator, timeout=None):
         """Finds an element using the provided locator."""
@@ -43,3 +42,7 @@ class BasePage:
             return wait_visible(self.driver, locator)
         else:
             return wait_visible(self.driver, locator, timeout)
+
+    def get_value(self, locator):
+        """Gets the value attribute of an element specified by the locator."""
+        return self.find(locator).get_attribute("value")

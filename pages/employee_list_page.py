@@ -1,6 +1,5 @@
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
-from utils.waits import wait_visible
 import time
 
 
@@ -23,7 +22,6 @@ class EmployeeListPage(BasePage):
 
     def wait_for_search_complete(self):
         locator = (By.XPATH, "//span[normalize-space()='(1) Record Found']")
-
         try:
             self.find(locator)
             return True
