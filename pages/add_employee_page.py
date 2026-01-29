@@ -12,7 +12,7 @@ class AddEmployeePage(BasePage):
     SAVE_BUTTON = (By.CSS_SELECTOR, "button[type='submit']")
 
     SUCCESS_MESSAGE = (
-        By.XPATH, "//div[contains(@class, 'oxd-toast-content')]")
+        By.XPATH, "//div[contains(@class, 'oxd-toast-content') and contains(., 'Success')]")
 
     EMPLOYEE_ID_FIELD = (
         By.XPATH, "//label[text()='Employee Id']/parent::div/parent::div//input")
@@ -30,7 +30,7 @@ class AddEmployeePage(BasePage):
     def click_save(self):
         self.click(self.SAVE_BUTTON)
 
-    def is_success_message_displayed(self):
+    def is_add_successful(self):
         try:
             return self.find(self.SUCCESS_MESSAGE).is_displayed()
         except:

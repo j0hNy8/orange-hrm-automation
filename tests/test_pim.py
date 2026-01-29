@@ -25,7 +25,7 @@ def test_add_new_employee(driver):
     print(f"Generated Employee ID: {employee_id}")
     pim_add.click_save()
 
-    assert pim_add.is_success_message_displayed(
+    assert pim_add.is_add_successful(
     ) == True, "Success message not displayed after adding employee"
 
     pim_list = EmployeeListPage(driver)
@@ -41,3 +41,14 @@ def test_add_new_employee(driver):
 
     print(
         f"Employee {employee_id} successfully added and verified in employee list.")
+
+    print(f"Deleting employee id: {employee_id}")
+
+    pim_list.click_delete_icon(employee_id)
+
+    pim_list.confirm_delete()
+
+    is_deleted = pim_list.is_delete_successful()
+    assert is_deleted == True, f"Employee {employee_id} was not deleted successfully"
+
+    print(f"Employee {employee_id} successfully deleted.")

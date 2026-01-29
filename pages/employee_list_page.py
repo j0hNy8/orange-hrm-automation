@@ -11,6 +11,11 @@ class EmployeeListPage(BasePage):
 
     SEARCH_BUTTON = (By.CSS_SELECTOR, "button[type='submit']")
 
+    CONFIRM_DELETE_BUTTON = (By.XPATH, "//button[contains(., 'Yes, Delete')]")
+
+    SUCCESS_MESSAGE = (
+        By.XPATH, "//div[contains(@class, 'oxd-toast-content') and contains(., 'Success')]")
+
     def click_employee_list_tab(self):
         self.click(self.LINK_EMPLOYEE_LIST)
 
@@ -34,3 +39,18 @@ class EmployeeListPage(BasePage):
             return True
         except:
             return False
+
+    def is_delete_successful(self):
+        try:
+            return self.find(self.SUCCESS_MESSAGE).is_displayed()
+        except:
+            return False
+
+    def click_delete_icon(self, employee_id):
+        delete_btn_xpath = (f"//div[contains(text(), '{employee_id}')]"
+                            f"/ancestor::div[@role='row']"
+                            f"//button[i[contains(@class, 'bi-trash')]]")
+        self.click((By.XPATH, delete_btn_xpath))
+
+    def confirm_delete(self):
+        self.click(self.CONFIRM_DELETE_BUTTON)
