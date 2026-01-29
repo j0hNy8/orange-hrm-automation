@@ -14,12 +14,20 @@ class AddEmployeePage(BasePage):
     SUCCESS_MESSAGE = (
         By.XPATH, "//div[contains(@class, 'oxd-toast-content')]")
 
+    EMPLOYEE_ID_FIELD = (
+        By.XPATH, "//label[text()='Employee Id']/parent::div/parent::div//input")
+
     def click_add_employee(self):
         self.click(self.ADD_BUTTON)
 
     def add_employee(self, first_name, last_name):
         self.type_text(self.INPUT_FIRST_NAME, first_name)
         self.type_text(self.INPUT_LAST_NAME, last_name)
+
+    def get_employee_id(self):
+        return self.get_value(self.EMPLOYEE_ID_FIELD)
+
+    def click_save(self):
         self.click(self.SAVE_BUTTON)
 
     def is_success_message_displayed(self):

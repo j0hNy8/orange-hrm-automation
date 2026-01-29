@@ -1,23 +1,21 @@
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
-import time
 
 
 class EmployeeListPage(BasePage):
 
     LINK_EMPLOYEE_LIST = (By.LINK_TEXT, "Employee List")
 
-    INPUT_EMPLOYEE_NAME = (
-        By.XPATH, "//label[text()='Employee Name']/../following-sibling::div//input")
+    INPUT_EMPLOYEE_ID = (
+        By.XPATH, "//label[text()='Employee Id']/../following-sibling::div//input")
 
     SEARCH_BUTTON = (By.CSS_SELECTOR, "button[type='submit']")
 
     def click_employee_list_tab(self):
         self.click(self.LINK_EMPLOYEE_LIST)
 
-    def search_employee(self, full_name):
-        self.type_text(self.INPUT_EMPLOYEE_NAME, full_name)
-        time.sleep(0.5)  # Wait for suggestions to load
+    def search_employee(self, employee_id):
+        self.type_text(self.INPUT_EMPLOYEE_ID, employee_id)
         self.click(self.SEARCH_BUTTON)
 
     def wait_for_search_complete(self):
@@ -28,15 +26,11 @@ class EmployeeListPage(BasePage):
         except:
             return False
 
-    def is_employee_in_table(self, first_name, last_name):
-        xpath_query = (
-            f"//div[contains(@class, 'oxd-table-card')]"
-            f"[.//div[contains(text(), '{first_name}')]]"
-            f"[.//div[contains(text(), '{last_name}')]]"
-        )
-
+    def is_employee_listed(self, employee_id):
+        locator = (
+            By.XPATH, f"//div[@role='row']//div[contains(text(), '{employee_id}')]")
         try:
-            self.find((By.XPATH, xpath_query))
+            self.find(locator)
             return True
         except:
             return False
