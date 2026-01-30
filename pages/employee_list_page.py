@@ -54,3 +54,9 @@ class EmployeeListPage(BasePage):
 
     def confirm_delete(self):
         self.click(self.CONFIRM_DELETE_BUTTON)
+
+    def click_edit_icon(self, employee_id):
+        delete_btn_xpath = (f"//div[contains(text(), '{employee_id}')]"
+                            f"/ancestor::div[@role='row']"
+                            f"//button[i[contains(@class, 'bi-pencil-fill')]]")
+        self.click((By.XPATH, delete_btn_xpath))
